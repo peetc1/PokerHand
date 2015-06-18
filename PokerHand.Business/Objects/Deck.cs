@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using PokerHand.Business;
+using PokerHand.Business.Interfaces;
+using PokerHand.Models;
 
-namespace PokerHand.Models
+namespace PokerHand.Business.Objects
 {
-    public class Deck
+    public class Deck : IDeck
     {
         #region Constants
 
@@ -106,7 +106,7 @@ namespace PokerHand.Models
         /// Gets the next card.
         /// </summary>
         /// <returns>Card.</returns>
-        public Card GetNextCard()
+        public ICard GetNextCard()
         {
             try
             {

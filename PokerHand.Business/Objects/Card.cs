@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using PokerHand.Business;
+using PokerHand.Models;
 
-namespace PokerHand.Models
+namespace PokerHand.Business.Objects
 {
     public class Card : ICard
     {
