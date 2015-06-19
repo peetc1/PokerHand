@@ -93,6 +93,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PokerHand.Business\PokerHand.Business.csproj">
+      <Project>{7CAC7DBE-98FC-4709-9B35-3B0B5DC4C2D6}</Project>
+      <Name>PokerHand.Business</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PokerHand\PokerHand.csproj">
       <Project>{DE0BD143-2FBA-4643-A8A1-0E14607E8E32}</Project>
       <Name>PokerHand</Name>

@@ -59,6 +59,12 @@ namespace PokerHand.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Game()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Game);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public HomeController Actions { get { return MVC.Home; } }
@@ -76,12 +82,14 @@ namespace PokerHand.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string Game = "Game";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string Game = "Game";
         }
 
 
@@ -91,8 +99,15 @@ namespace PokerHand.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Index
         {
-            public readonly string user1 = "user1";
-            public readonly string user2 = "user2";
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_Game s_params_Game = new ActionParamsClass_Game();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Game GameParams { get { return s_params_Game; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Game
+        {
+            public readonly string model = "model";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -129,15 +144,38 @@ namespace PokerHand.Controllers
         }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, PokerHand.Business.Objects.User user1, PokerHand.Business.Objects.User user2);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, PokerHand.Models.IndexModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(PokerHand.Business.Objects.User user1, PokerHand.Business.Objects.User user2)
+        public override System.Web.Mvc.ActionResult Index(PokerHand.Models.IndexModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "user1", user1);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "user2", user2);
-            IndexOverride(callInfo, user1, user2);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            IndexOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GameOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, PokerHand.Models.IndexModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Game(PokerHand.Models.IndexModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Game);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            GameOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GameOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, PokerHand.Models.GameModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Game(PokerHand.Models.GameModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Game);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            GameOverride(callInfo, model);
             return callInfo;
         }
 

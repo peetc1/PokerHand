@@ -26,3 +26,16 @@ textarea {
 .pad-top {
     padding-top: 10px;
 }
+
+.marg-top {
+    margin-top: 10px;
+}
+
+.pad-all {
+    padding: 5px 5px 5px 5px;
+}
+
+.rounded {
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+}

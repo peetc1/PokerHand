@@ -1,6 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerHand.Models;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PokerHand.Business.Objects;
 
 namespace PokerHand.Tests
 {

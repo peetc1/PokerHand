@@ -19,9 +19,8 @@ namespace PokerHand.Business.Objects
         /// <summary>
         /// The card set (A-K)
         /// </summary>
-        private static List<KeyValuePair<string, int>> CardSet = new List<KeyValuePair<string, int>>
+        private static readonly List<KeyValuePair<string, int>> CardSet = new List<KeyValuePair<string, int>>
         {
-            new KeyValuePair<string, int>("A", 1),
             new KeyValuePair<string, int>("2", 2),
             new KeyValuePair<string, int>("3", 3),
             new KeyValuePair<string, int>("4", 4),
@@ -33,10 +32,11 @@ namespace PokerHand.Business.Objects
             new KeyValuePair<string, int>("10", 10),
             new KeyValuePair<string, int>("J", 11),
             new KeyValuePair<string, int>("Q", 12),
-            new KeyValuePair<string, int>("K", 13)
+            new KeyValuePair<string, int>("K", 13),
+            new KeyValuePair<string, int>("A", 14)
         };
 
-        private static List<KeyValuePair<int,string>> Suits = new List<KeyValuePair<int, string>>
+        private static readonly List<KeyValuePair<int,string>> Suits = new List<KeyValuePair<int, string>>
         {
             new KeyValuePair<int, string>(1, "C"),
             new KeyValuePair<int, string>(2, "D"),
@@ -128,7 +128,7 @@ namespace PokerHand.Business.Objects
         }
 
         /// <summary>
-        /// Burns the card.
+        /// Burns the card. (wrote this for fun, I played around with texas hold-em)
         /// </summary>
         /// <param name="numOfCards">The number of cards to burn.</param>
         public void BurnCard(int numOfCards = 1)
