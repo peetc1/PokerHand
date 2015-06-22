@@ -10,25 +10,25 @@
 
 @using (Html.BeginForm(MVC.Home.Index(), FormMethod.Post, new { id = "indexForm" }))
 {
-    <div class="row form-group">
+    <div class="row">
         <div class="col-md-3">
             <div class="form-group">
-                @Html.LabelFor(x => x.UserName1)
-                @Html.TextBoxFor(x => x.UserName1, new { @class = "form-control" })
+                @Html.LabelFor(x => x.PlayerName1)
+                @Html.TextBoxFor(x => x.PlayerName1, new { @class = "form-control" })
                 <div class="marg-top">
                     <div class="alert alert-danger index-valid hidden">
-                        @Html.ValidationMessageFor(model => model.UserName1)
+                        @Html.ValidationMessageFor(model => model.PlayerName1)
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
-                @Html.LabelFor(x => x.UserName2)
-                @Html.TextBoxFor(x => x.UserName2, new { @class = "form-control" })
+                @Html.LabelFor(x => x.PlayerName2)
+                @Html.TextBoxFor(x => x.PlayerName2, new { @class = "form-control" })
                 <div class="marg-top">
                     <div class="alert alert-danger index-valid hidden">
-                        @Html.ValidationMessageFor(model => model.UserName2)
+                        @Html.ValidationMessageFor(model => model.PlayerName2)
                     </div>
                 </div>
             </div>
@@ -44,6 +44,6 @@
 
 @section scripts
 {
-    <script src="~/Scripts/Site.js"></script>
     @Scripts.Render("~/bundles/jqueryval");
+    @Scripts.Render("~/bundles/site");
 }

@@ -7,9 +7,9 @@ using PokerHand.Models;
 
 namespace PokerHand.Business.Interfaces
 {
-    public interface IDeck
+    public interface IDeckService
     {
-        void Shuffle();
+        IDeckService Shuffle();
         ICard GetNextCard();
         int GetCardsLeft();
     }

@@ -6,7 +6,7 @@ using PokerHand.Models;
 
 namespace PokerHand.Business.Objects
 {
-    public class Deck : IDeck
+    public class DeckService : IDeckService
     {
         #region Constants
 
@@ -16,52 +16,32 @@ namespace PokerHand.Business.Objects
 
         #region Private variables
 
-        /// <summary>
-        /// The card set (A-K)
-        /// </summary>
-        private static readonly List<KeyValuePair<string, int>> CardSet = new List<KeyValuePair<string, int>>
+        private static readonly Dictionary<int,string> Suits = new Dictionary<int, string>
         {
-            new KeyValuePair<string, int>("2", 2),
-            new KeyValuePair<string, int>("3", 3),
-            new KeyValuePair<string, int>("4", 4),
-            new KeyValuePair<string, int>("5", 5),
-            new KeyValuePair<string, int>("6", 6),
-            new KeyValuePair<string, int>("7", 7),
-            new KeyValuePair<string, int>("8", 8),
-            new KeyValuePair<string, int>("9", 9),
-            new KeyValuePair<string, int>("10", 10),
-            new KeyValuePair<string, int>("J", 11),
-            new KeyValuePair<string, int>("Q", 12),
-            new KeyValuePair<string, int>("K", 13),
-            new KeyValuePair<string, int>("A", 14)
-        };
-
-        private static readonly List<KeyValuePair<int,string>> Suits = new List<KeyValuePair<int, string>>
-        {
-            new KeyValuePair<int, string>(1, "C"),
-            new KeyValuePair<int, string>(2, "D"),
-            new KeyValuePair<int, string>(3, "H"),
-            new KeyValuePair<int, string>(4, "S")
+            {1, "D"},
+            {2, "C"},
+            {3, "H"},
+            {4, "S"}
         };
 
         private readonly Stack<Card> _cardStack;
         #endregion
         
         /// <summary>
-        /// Initializes a new instance of the <see cref="Deck"/> class.
+        /// Initializes a new instance of the <see cref="DeckService"/> class.
         /// </summary>
-        public Deck()
+        public DeckService()
         {
             _cardStack = new Stack<Card>();
 
-            // initially shuffle the deck
+            // initially shuffle the deck 
             Shuffle();
         }
 
         /// <summary>
         /// Shuffles this instance.
         /// </summary>
-        public void Shuffle()
+        public IDeckService Shuffle()
         {
             // temporary card list
             var cards = new List<Card>();
@@ -69,7 +49,7 @@ namespace PokerHand.Business.Objects
             // create temporary deck of cards
             foreach (var suit in Suits)
             {
-                cards.AddRange(CardSet.Select(card => new Card
+                cards.AddRange(CardSet.SetList.Select(card => new Card
                 {
                     Suit = suit,
                     Type = new KeyValuePair<string, int>(card.Key, card.Value)
@@ -90,6 +70,7 @@ namespace PokerHand.Business.Objects
                 {
                     var temp = cards.First();
                     _cardStack.Push(temp);
+                    cards.RemoveAt(0);
                     continue;
                 }
 
@@ -100,6 +81,8 @@ namespace PokerHand.Business.Objects
                 _cardStack.Push(cards[randId - 1]);
                 cards.RemoveAt(randId - 1);
             }
+
+            return this;
         }
 
         /// <summary>

@@ -24,6 +24,12 @@ namespace PokerHand
                       "~/Scripts/bootstrap.min.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/handlebars").Include(
+                      "~/Scripts/handlebars-v3.0.3.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/site").Include(
+                      "~/Scripts/Site.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",
                       "~/Content/site.css"));

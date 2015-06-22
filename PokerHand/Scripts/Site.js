@@ -7,5 +7,4 @@
             $(this).parent("div.index-valid").toggleClass("hidden");
         }
     });
-
 });

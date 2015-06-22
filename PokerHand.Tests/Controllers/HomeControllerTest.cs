@@ -25,38 +25,5 @@ namespace PokerHand.Tests.Controllers
             // Assert
             Assert.IsNotNull(result);
         }
-
-        [TestMethod]
-        public void UserGoesToGamePageFirst()
-        {
-            // Arrange
-            var controller = new HomeController();
-
-            // Act
-            var result = controller.Game() as ViewResult;
-            
-            // Assert
-            Assert.IsNull(result);
-        }
-
-        [TestMethod]
-        public void UserEntersDataGoesToGamePage()
-        {
-            // Arrange
-            var controller = new HomeController();
-
-            // Act
-            var result = controller.Game(new IndexModel
-            {
-                UserName1 = "p1",
-                UserName2 = "p2"
-            }) as ViewResult;
-            var model = (GameModel) result.ViewData.Model;
-
-
-            // Assert
-            Assert.IsNotNull(model.User1);
-            Assert.IsNotNull(model.User2);
-        }
     }
 }

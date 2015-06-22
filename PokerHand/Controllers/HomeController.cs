@@ -1,14 +1,11 @@
-﻿using System.Web.Mvc;
-using PokerHand.Business.Interfaces;
-using PokerHand.Business.Objects;
+﻿using System;
+using System.Web.Mvc;
 using PokerHand.Models;
 
 namespace PokerHand.Controllers
 {
     public partial class HomeController : Controller
     {
-        private IDeck _gameDeck;
-
         [HttpGet]
         public virtual ActionResult Index()
         {
@@ -18,32 +15,15 @@ namespace PokerHand.Controllers
         [HttpPost]
         public virtual ActionResult Index(IndexModel model)
         {
-            if (ModelState.IsValid)
-            {
-                // go to game page
-                return RedirectToAction("Game", new { model.UserName1, model.UserName2 });
-            }
-            return View(model);
-        }
+            // model isn't valid try again
+            if (!ModelState.IsValid) return View(model);
 
-        [HttpGet]
-        public virtual ActionResult Game(IndexModel indexModel)
-        {
-            if (indexModel.UserName1 == null || indexModel.UserName2 == null)
-            {
-                return RedirectToAction(MVC.Home.Index());
-            }
+            // have to copy to create 2 brand new variables to avoid null ref error on game controller
+            var player1 = String.Copy(model.PlayerName1);
+            var player2 = String.Copy(model.PlayerName2);
 
-            // build model
-            var model = new GameModel(indexModel);
-
-            return View(model);
-        }
-
-        [HttpPost]
-        public virtual ActionResult Game(GameModel model)
-        {
-            return View(model);
+            // go to game page
+            return RedirectToAction(MVC.Game.Index(player1, player2));
         }
     }
 }

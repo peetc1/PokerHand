@@ -27,6 +27,7 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static partial class MVC
 {
+    public static PokerHand.Controllers.GameController Game = new PokerHand.Controllers.T4MVC_GameController();
     public static PokerHand.Controllers.HomeController Home = new PokerHand.Controllers.T4MVC_HomeController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
@@ -73,6 +74,7 @@ namespace Links
         public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
+        public static readonly string handlebars_v3_0_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/handlebars-v3.0.3.min.js") ? Url("handlebars-v3.0.3.min.js") : Url("handlebars-v3.0.3.js");
         public static readonly string jquery_1_10_2_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.10.2.intellisense.min.js") ? Url("jquery-1.10.2.intellisense.min.js") : Url("jquery-1.10.2.intellisense.js");
         public static readonly string jquery_1_10_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.10.2.min.js") ? Url("jquery-1.10.2.min.js") : Url("jquery-1.10.2.js");
         public static readonly string jquery_1_10_2_min_js = Url("jquery-1.10.2.min.js");
@@ -128,6 +130,7 @@ namespace Links
                 public const string _references_js = "~/Scripts/_references.js"; 
                 public const string bootstrap_js = "~/Scripts/bootstrap.js"; 
                 public const string bootstrap_min_js = "~/Scripts/bootstrap.min.js"; 
+                public const string handlebars_v3_0_3_js = "~/Scripts/handlebars-v3.0.3.js"; 
                 public const string jquery_1_10_2_intellisense_js = "~/Scripts/jquery-1.10.2.intellisense.js"; 
                 public const string jquery_1_10_2_js = "~/Scripts/jquery-1.10.2.js"; 
                 public const string jquery_1_10_2_min_js = "~/Scripts/jquery-1.10.2.min.js"; 

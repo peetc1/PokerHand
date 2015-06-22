@@ -1,0 +1,71 @@
+﻿@model PokerHand.Models.GameModel
+
+@{
+    ViewBag.Title = "Game";
+}
+
+<h2>Game</h2>
+
+<div class="col-md-1" style="padding-top: 50px">
+     @Html.HiddenFor(x => x.Player1.Name)
+     @Html.HiddenFor(x => x.Player2.Name)
+    <div class="row">
+        <input id="shuffle" type="button" class="btn btn-warning disabled" value="Shuffle" />
+    </div>
+    <div class="row pad-top">
+        <input id="deal" type="button" class="btn btn-primary" value="Deal Cards"/>
+    </div>
+</div>
+
+
+
+<div id="content-placeholder" class="marg-bot"></div>
+
+@* Handlebars template *@
+<script id="gameboard-template" type="text/x-handlebars-template">
+    <div class="col-md-offset-1 col-md-10">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-4">
+                @Html.LabelFor(x => x.Player1.Name) @Html.DisplayFor(x => x.Player1.Name)
+            </div>
+        </div>
+        <div class="row pad-top board-size">
+            {{#each Player1.Hand}}
+            <div class="col-md-2 highlight">               
+                <h1 class="text-center">{{Type.Key}}{{Suit.Value}}</h1>
+            </div>
+            {{/each}}
+        </div>
+        <div class="row pad-top" style="min-height: 80px;">
+            <div class="col-md-5">
+                <h2 id="winText" class="show">Winner: {{#if Winner}} {{Username}} with the hand {{HandType}} {{/if}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-2 col-md-4">                
+                @Html.LabelFor(x => x.Player2.Name) @Html.DisplayFor(x => x.Player2.Name)
+            </div>
+        </div>
+        <div class="row pad-top board-size">
+            {{#each Player2.Hand}}
+            <div class="col-md-2 highlight">                
+                <h1 class="text-center">{{Type.Key}}{{Suit.Value}}</h1>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</script>
+
+
+@section scripts
+{
+    <script src="~/Scripts/gameboard.js"></script>
+}
+
+
+
+
+
+
+
+

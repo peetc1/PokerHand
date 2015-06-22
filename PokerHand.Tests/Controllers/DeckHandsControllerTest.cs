@@ -1,10 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerHand.Business.Objects;
 
-namespace PokerHand.Tests
+namespace PokerHand.Tests.Controllers
 {
     [TestClass]
-    public class DeckTest
+    public class DeckHandsControllerTest
     {
         [TestMethod]
         public void FullDeck()
