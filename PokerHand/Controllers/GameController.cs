@@ -27,7 +27,7 @@ namespace PokerHand.Controllers
         /// <param name="comparer">The comparer for poker hands</param>
         public GameController(IDeckService deck, IHandComparerService comparer)
         {
-            // initialize or pull from session for re-usable deck (would normally just use database)
+            // initialize or pull from session for re-usable deck (would normally just use database calls and an api)
             System.Web.HttpContext.Current.Session["DeckService"] = System.Web.HttpContext.Current.Session["DeckService"] ?? deck;
             _deck = (IDeckService)System.Web.HttpContext.Current.Session["DeckService"];
             _comparer = comparer;
