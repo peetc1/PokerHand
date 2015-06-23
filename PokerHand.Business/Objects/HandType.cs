@@ -9,7 +9,7 @@ namespace PokerHand.Business.Objects
     public class HandType
     {
         public HandTypeEnum Type { get; set; }
-        public int HighCardValue { get; set; }
+        public List<int> HighCardValues { get; set; }
         public int HighPairValue { get; set; }
         public int LowPairValue { get; set; }
     }

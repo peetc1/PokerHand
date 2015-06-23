@@ -12,18 +12,835 @@ namespace PokerHand.Tests
         // these pieces are always needed
         private Player _p1 = new Player("p1");
         private Player _p2 = new Player("p2");
-        
-        [TestMethod]
-        public void StraightFlushBeatsOtherHandTypes()
+
+        private static HandComparerService _comparerService;
+
+        public HandComparerServiceTest()
         {
-            
+            _comparerService = new HandComparerService();
         }
 
 
 
+        #region Straight Flush Tests
 
+        [TestMethod]
+        public void StraightFlushPushSameHand()
+        {
+            // Arrange
+            _p1.Hand = GetStraightFlush(14);
+            _p2.Hand = GetStraightFlush(14);
 
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
 
+            // Assert
+            Assert.AreEqual(result.UserName, "Push. Hands are tied");
+        }
+
+        [TestMethod]
+        public void StraightFlushBeatsLowerSameHand()
+        {
+            // Arrange
+            _p1.Hand = GetStraightFlush(14);
+            _p2.Hand = GetStraightFlush(10);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void StraightFlushBeatsFourOfAKind()
+        {
+            // Arrange
+            _p1.Hand = GetStraightFlush();
+            _p2.Hand = GetFourOfAKind(10, 9);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void StraightFlushBeatsFullHouse()
+        {
+            // Arrange
+            _p1.Hand = GetStraightFlush();
+            _p2.Hand = GetFullHouse(14, 10);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void StraightFlushBeatsFlush()
+        {
+            // Arrange
+            _p1.Hand = GetStraightFlush();
+            _p2.Hand = GetFlush();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void StraightFlushBeatsStraight()
+        {
+            // Arrange
+            _p1.Hand = GetStraightFlush();
+            _p2.Hand = GetStraight();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void StraightFlushBeatsThreeOfAKind()
+        {
+            // Arrange
+            _p1.Hand = GetStraightFlush();
+            _p2.Hand = GetThreeOfAKind(14,10);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void StraightFlushBeatsTwoPair()
+        {
+            // Arrange
+            _p1.Hand = GetStraightFlush();
+            _p2.Hand = GetTwoPair(14, 10, 8);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void StraightFlushBeatsPair()
+        {
+            // Arrange
+            _p1.Hand = GetStraightFlush();
+            _p2.Hand = GetPair();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void StraightFlushBeatsHighCard()
+        {
+            // Arrange
+            _p1.Hand = GetStraightFlush();
+            _p2.Hand = GetHighCard();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        #endregion
+
+        #region Four of a Kind Tests
+
+        [TestMethod]
+        public void FourOfAKindBeatsLowerSameHand()
+        {
+            // Arrange
+            _p1.Hand = GetFourOfAKind();
+            _p2.Hand = GetFourOfAKind(10);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FourOfAKindBeatsFullHouse()
+        {
+            // Arrange
+            _p1.Hand = GetFourOfAKind();
+            _p2.Hand = GetFullHouse(14, 10);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FourOfAKindBeatsFlush()
+        {
+            // Arrange
+            _p1.Hand = GetFourOfAKind();
+            _p2.Hand = GetFlush();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FourOfAKindBeatsStraight()
+        {
+            // Arrange
+            _p1.Hand = GetFourOfAKind();
+            _p2.Hand = GetStraight();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FourOfAKindBeatsThreeOfAKind()
+        {
+            // Arrange
+            _p1.Hand = GetFourOfAKind();
+            _p2.Hand = GetThreeOfAKind(14, 10);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FourOfAKindBeatsTwoPair()
+        {
+            // Arrange
+            _p1.Hand = GetFourOfAKind();
+            _p2.Hand = GetTwoPair(14, 10, 8);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FourOfAKindBeatsPair()
+        {
+            // Arrange
+            _p1.Hand = GetFourOfAKind();
+            _p2.Hand = GetPair();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FourOfAKindBeatsHighCard()
+        {
+            // Arrange
+            _p1.Hand = GetFourOfAKind();
+            _p2.Hand = GetHighCard();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        #endregion
+
+        #region Full House Tests
+
+        [TestMethod]
+        public void FullHouseBeatsLowerTopThreeHand()
+        {
+            // Arrange
+            _p1.Hand = GetFullHouse();
+            _p2.Hand = GetFullHouse(10);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FullHouseBeatsFlush()
+        {
+            // Arrange
+            _p1.Hand = GetFullHouse();
+            _p2.Hand = GetFlush();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FullHouseBeatsStraight()
+        {
+            // Arrange
+            _p1.Hand = GetFullHouse();
+            _p2.Hand = GetStraight();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FullHouseBeatsThreeOfAKind()
+        {
+            // Arrange
+            _p1.Hand = GetFullHouse();
+            _p2.Hand = GetThreeOfAKind(14, 10);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FullHouseBeatsTwoPair()
+        {
+            // Arrange
+            _p1.Hand = GetFullHouse();
+            _p2.Hand = GetTwoPair(14, 10, 8);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FullHouseBeatsPair()
+        {
+            // Arrange
+            _p1.Hand = GetFullHouse();
+            _p2.Hand = GetPair();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FullHouseBeatsHighCard()
+        {
+            // Arrange
+            _p1.Hand = GetFullHouse();
+            _p2.Hand = GetHighCard();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        #endregion
+
+        #region Flush Tests
+
+        [TestMethod]
+        public void FlushPushSameHand()
+        {
+            // Arrange
+            _p1.Hand = GetFlush();
+            _p2.Hand = GetFlush();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, "Push. Hands are tied");
+        }
+
+        [TestMethod]
+        public void FlushBeatsLowerSameHand()
+        {
+            // Arrange
+            _p1.Hand = GetFlush();
+            _p2.Hand = GetFlush(10);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+        
+        [TestMethod]
+        public void FlushBeatsStraight()
+        {
+            // Arrange
+            _p1.Hand = GetFlush();
+            _p2.Hand = GetStraight();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FlushBeatsThreeOfAKind()
+        {
+            // Arrange
+            _p1.Hand = GetFlush();
+            _p2.Hand = GetThreeOfAKind(14, 10);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FlushBeatsTwoPair()
+        {
+            // Arrange
+            _p1.Hand = GetFlush();
+            _p2.Hand = GetTwoPair(14, 10, 8);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FlushBeatsPair()
+        {
+            // Arrange
+            _p1.Hand = GetFlush();
+            _p2.Hand = GetPair();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void FlushBeatsHighCard()
+        {
+            // Arrange
+            _p1.Hand = GetFlush();
+            _p2.Hand = GetHighCard();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        #endregion
+
+        #region Straight Tests
+
+        [TestMethod]
+        public void StraightPushSameHand()
+        {
+            // Arrange
+            _p1.Hand = GetStraight();
+            _p2.Hand = GetStraight();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, "Push. Hands are tied");
+        }
+
+        [TestMethod]
+        public void StraightBeatsLowerSameHand()
+        {
+            // Arrange
+            _p1.Hand = GetStraight();
+            _p2.Hand = GetStraight(10);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void StraightBeatsThreeOfAKind()
+        {
+            // Arrange
+            _p1.Hand = GetStraight();
+            _p2.Hand = GetThreeOfAKind(14, 10);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void StraightBeatsTwoPair()
+        {
+            // Arrange
+            _p1.Hand = GetStraight();
+            _p2.Hand = GetTwoPair(14, 10, 8);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void StraightBeatsPair()
+        {
+            // Arrange
+            _p1.Hand = GetStraight();
+            _p2.Hand = GetPair();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void StraightBeatsHighCard()
+        {
+            // Arrange
+            _p1.Hand = GetStraight();
+            _p2.Hand = GetHighCard();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        #endregion
+
+        #region Three of a Kind Tests
+
+        [TestMethod]
+        public void ThreeOfAKindBeatsLowerTopThreeHand()
+        {
+            // Arrange
+            _p1.Hand = GetThreeOfAKind();
+            _p2.Hand = GetThreeOfAKind(10);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void ThreeOfAKindBeatsTwoPair()
+        {
+            // Arrange
+            _p1.Hand = GetThreeOfAKind();
+            _p2.Hand = GetTwoPair(14, 10, 8);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void ThreeOfAKindBeatsPair()
+        {
+            // Arrange
+            _p1.Hand = GetThreeOfAKind();
+            _p2.Hand = GetPair();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void ThreeOfAKindBeatsHighCard()
+        {
+            // Arrange
+            _p1.Hand = GetThreeOfAKind();
+            _p2.Hand = GetHighCard();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        #endregion
+
+        #region Two Pair Tests
+
+        [TestMethod]
+        public void TwoPairPushSameHand()
+        {
+            // Arrange
+            _p1.Hand = GetTwoPair();
+            _p2.Hand = GetTwoPair();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, "Push. Hands are tied");
+        }
+
+        [TestMethod]
+        public void TwoPairBeatsLowerTopPairHand()
+        {
+            // Arrange
+            _p1.Hand = GetTwoPair();
+            _p2.Hand = GetTwoPair(10,9);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void TwoPairBeatsLowerBottomPairHand()
+        {
+            // Arrange
+            _p1.Hand = GetTwoPair(10, 9);
+            _p2.Hand = GetTwoPair(10, 8);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void TwoPairBeatsLowerHighCardHand()
+        {
+            // Arrange
+            _p1.Hand = GetTwoPair(10, 9, 8);
+            _p2.Hand = GetTwoPair(10, 9);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void TwoPairBeatsPair()
+        {
+            // Arrange
+            _p1.Hand = GetTwoPair();
+            _p2.Hand = GetPair();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void TwoPairBeatsHighCard()
+        {
+            // Arrange
+            _p1.Hand = GetTwoPair();
+            _p2.Hand = GetHighCard();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        #endregion
+
+        #region Pair Tests
+
+        [TestMethod]
+        public void PairPushSameHand()
+        {
+            // Arrange
+            _p1.Hand = GetPair();
+            _p2.Hand = GetPair();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, "Push. Hands are tied");
+        }
+
+        [TestMethod]
+        public void PairBeatsLowerPairHand()
+        {
+            // Arrange
+            _p1.Hand = GetPair();
+            _p2.Hand = GetPair(5);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void PairBeatsLowerHighCardHand()
+        {
+            // Arrange
+            _p1.Hand = GetPair(10, 9);
+            _p2.Hand = GetPair(10, 8);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void PairBeatsHighCard()
+        {
+            // Arrange
+            _p1.Hand = GetPair();
+            _p2.Hand = GetHighCard();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        #endregion
+
+        #region High Card Tests
+
+        [TestMethod]
+        public void HighCardPushSameHand()
+        {
+            // Arrange
+            _p1.Hand = GetHighCard();
+            _p2.Hand = GetHighCard();
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, "Push. Hands are tied");
+        }
+
+        [TestMethod]
+        public void HighCardBeatsLowerHighCardHand()
+        {
+            // Arrange
+            _p1.Hand = GetHighCard();
+            _p2.Hand = GetHighCard(5);
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        [TestMethod]
+        public void HighCardBeatsLowerLastCard()
+        {
+            // Arrange
+            _p1.Hand = new List<Card>
+            {
+                new Card{Suit = GetSingleSuit(), Type = CardSet.SetList.First(x => x.Value == 10)},
+                new Card{Suit = GetSingleSuit(2), Type = CardSet.SetList.First(x => x.Value == 9)},
+                new Card{Suit = GetSingleSuit(3), Type = CardSet.SetList.First(x => x.Value == 8)},
+                new Card{Suit = GetSingleSuit(4), Type = CardSet.SetList.First(x => x.Value == 6)},
+                new Card{Suit = GetSingleSuit(), Type = CardSet.SetList.First(x => x.Value == 4)},
+            };
+            _p2.Hand = new List<Card>
+            {
+                new Card{Suit = GetSingleSuit(), Type = CardSet.SetList.First(x => x.Value == 10)},
+                new Card{Suit = GetSingleSuit(2), Type = CardSet.SetList.First(x => x.Value == 9)},
+                new Card{Suit = GetSingleSuit(3), Type = CardSet.SetList.First(x => x.Value == 8)},
+                new Card{Suit = GetSingleSuit(4), Type = CardSet.SetList.First(x => x.Value == 6)},
+                new Card{Suit = GetSingleSuit(), Type = CardSet.SetList.First(x => x.Value == 3)},
+            };
+
+            // Act
+            var result = _comparerService.GetWinner(_p1, _p2);
+
+            // Assert
+            Assert.AreEqual(result.UserName, _p1.Name);
+        }
+
+        #endregion
 
         #region Hand Helpers
         /// <summary>
@@ -117,7 +934,7 @@ namespace PokerHand.Tests
             // get straight cards
             return GetStraightDictionary(topCardValue).ToList().Select((t, i) => new Card
             {
-                Suit = GetSingleSuit(i + 1),
+                Suit = GetSingleSuit((i + 1) <= 4 ? (i + 1) : 4),
                 Type = t
             }).ToList();
         }
@@ -181,7 +998,7 @@ namespace PokerHand.Tests
         /// <param name="offCardHighValue">The off card high value.</param>
         /// <returns>List&lt;Card&gt;.</returns>
         /// <exception cref="System.Exception">Cannot have more than 2 of the same cards for a pair</exception>
-        private static List<Card> GetPair(int pairValue = 14, int offCardHighValue = 10)
+        private static List<Card> GetPair(int pairValue = 14, int offCardHighValue = 12)
         {
             if (pairValue == offCardHighValue) throw new Exception("Cannot have more than 2 of the same cards for a pair");
 
@@ -209,7 +1026,7 @@ namespace PokerHand.Tests
             // get high card
             return GetFlushDictionary(topCardValue).ToList().Select((t, i) => new Card
             {
-                Suit = GetSingleSuit(i + 1),
+                Suit = GetSingleSuit((i + 1) <= 4 ? (i + 1) : 4),
                 Type = t
             }).ToList();
         }
@@ -237,7 +1054,14 @@ namespace PokerHand.Tests
         /// <returns>Dictionary&lt;System.String, System.Int32&gt;.</returns>
         private static Dictionary<string, int> GetFlushDictionary(int highCardValue = 14)
         {
-            return CardSet.SetList.OrderByDescending(x => x.Value).SkipWhile(x => x.Value > (highCardValue > 5 ? highCardValue : 6)).Take(1).Skip(1).Take(4).ToDictionary(x => x.Key, x => x.Value);
+            var dict =
+                CardSet.SetList.OrderByDescending(x => x.Value)
+                    .SkipWhile(x => x.Value > (highCardValue > 6 ? highCardValue : 7))
+                    .Take(6).ToList();
+
+            // remove one to make it not a straight
+            dict.RemoveAt(3);
+            return dict.ToDictionary(x => x.Key, x => x.Value);
         }
 
         /// <summary>
@@ -285,7 +1109,7 @@ namespace PokerHand.Tests
         /// <returns>KeyValuePair&lt;System.Int32, System.String&gt;.</returns>
         private static KeyValuePair<int, string> GetSingleSuit(int suitType = 1)
         {
-            return Suits.SuitList.First(x => x.Key == suitType);
+            return Suits.SuitList.ToList().First(x => x.Key == suitType);
         }
 
         /// <summary>

@@ -91,14 +91,27 @@ namespace PokerHand.Business.Objects
             // straight, flush, or straight flush (winner is based on high card or it's a push)
 
             // high card check
-            if (u1Type.HighCardValue != u2Type.HighCardValue)
+            if (u1Type.HighCardValues.Max(x => x) != u2Type.HighCardValues.Max(x => x))
             {
                 // return high card winner
                 return new Winner
                 {
-                    UserName = u1Type.HighCardValue > u2Type.HighCardValue ? player1.Name : player2.Name,
+                    UserName = u1Type.HighCardValues.Max(x => x) > u2Type.HighCardValues.Max(x => x) ? player1.Name : player2.Name,
                     HandType = HandTypeNames[u1Type.Type]
                 };
+            }
+            
+            for (var i = 1; i < u1Type.HighCardValues.Count; i++)
+            {
+                if (u1Type.HighCardValues[i] != u2Type.HighCardValues[i])
+                {
+                    // return high card winner
+                    return new Winner
+                    {
+                        UserName = u1Type.HighCardValues[i] > u2Type.HighCardValues[i] ? player1.Name : player2.Name,
+                        HandType = HandTypeNames[u1Type.Type]
+                    };
+                }
             }
 
             // tied high card (push)
@@ -140,7 +153,7 @@ namespace PokerHand.Business.Objects
             }
 
             // determine straight
-            if (tempCards.Where((t, i) => (i + 1) < tempCards.Count && t + 1 == tempCards[i + 1]).Count() == cards.Count)
+            if (tempCards.Where((t, i) => (i + 1) < tempCards.Count && t + 1 == tempCards[i + 1]).Count() == (cards.Count-1))
             {
                 attribs.Add(HandTypeEnum.Straight);
             }
@@ -151,7 +164,7 @@ namespace PokerHand.Business.Objects
                 // hand type determined
                 return new HandType
                 {
-                    HighCardValue = cards.Max(x => x.Type.Value),
+                    HighCardValues = cards.Select(x => x.Type.Value).OrderByDescending(y => y).ToList(),
                     Type = HandTypeEnum.StraightFlush
                 };
             }
@@ -162,7 +175,7 @@ namespace PokerHand.Business.Objects
                 // hand type determined
                 return new HandType
                 {
-                    HighCardValue = cards.Max(x => x.Type.Value),
+                    HighCardValues = cards.Select(x => x.Type.Value).OrderByDescending(y => y).ToList(),
                     Type = attribs.First()
                 };
             }
@@ -186,7 +199,7 @@ namespace PokerHand.Business.Objects
                     case 4:
                         return new HandType
                         {
-                            HighCardValue = typeList.First(x => x.Count != 4).Value,
+                            HighCardValues = typeList.Where(x => x.Count != 4).Select(x => x.Count).ToList(),
                             HighPairValue = typeList.First(x => x.Count == 4).Value,
                             Type = HandTypeEnum.FourOfAKind
                         };
@@ -198,7 +211,6 @@ namespace PokerHand.Business.Objects
             {
                 return new HandType
                 {
-                    HighCardValue = typeList.First(x => x.Count != 3 && x.Count != 2).Value,
                     HighPairValue = typeList.First(x => x.Count == 3).Value,
                     LowPairValue = typeList.First(x => x.Count == 2).Value,
                     Type = HandTypeEnum.FullHouse
@@ -211,7 +223,7 @@ namespace PokerHand.Business.Objects
             {
                 return new HandType
                 {
-                    HighCardValue = typeList.First(x => x.Count != 2).Value,
+                    HighCardValues = typeList.Where(x => x.Count != 2).Select(y => y.Value).OrderByDescending(z => z).ToList(),
                     HighPairValue = typeList.Where(x => x.Count == 2).Max(y => y.Value),
                     LowPairValue = typeList.Where(x => x.Count == 2).Min(y => y.Value),
                     Type = HandTypeEnum.TwoPair
@@ -223,8 +235,8 @@ namespace PokerHand.Business.Objects
             {
                 return new HandType
                 {
-                    HighCardValue = typeList.Where(x => x.Count != 3 && x.Count != 2).Max(y => y.Value),
-                    HighPairValue = typeList.First(x => x.Count == 3 || x.Count == 2).Value,
+                    HighCardValues = typeList.Where(x => x.Count < 2).Select(y => y.Value).OrderByDescending(z => z).ToList(),
+                    HighPairValue = typeList.First(x => x.Count >= 2).Value,
                     Type = attribs.First()
                 };
 
@@ -233,7 +245,7 @@ namespace PokerHand.Business.Objects
             // High Card only
             return new HandType
             {
-                HighCardValue = cards.Max(x => x.Type.Value),
+                HighCardValues = cards.Select(x => x.Type.Value).OrderByDescending(z => z).ToList(),
                 Type = HandTypeEnum.HighCard
             };
         }

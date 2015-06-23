@@ -61,29 +61,17 @@ namespace PokerHand.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(Exception), "No cards left in the deck")]
         public void ErrorPullingToManyCards()
         {
-            // setup
+            // Arrange
             var deck = new DeckService();
 
-            var error = "";
-
-            // execute
-            try
+            // Act
+            for (var i = 0; i < 53; i++)
             {
-                for (var i = 0; i < 53; i++)
-                {
-                    deck.GetNextCard();
-                }
+                deck.GetNextCard();
             }
-            catch (Exception ex)
-            {
-                error = ex.Message;
-            }
-
-            // validation
-            Assert.AreEqual("No cards left in the deck", error);
         }
-
     }
 }
