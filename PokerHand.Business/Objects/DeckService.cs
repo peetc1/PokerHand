@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using PokerHand.Business.Interfaces;
-using PokerHand.Models;
 
 namespace PokerHand.Business.Objects
 {
@@ -24,7 +23,7 @@ namespace PokerHand.Business.Objects
             {4, "S"}
         };
 
-        private readonly Stack<Card> _cardStack;
+        private Stack<Card> _cardStack;
         #endregion
         
         /// <summary>
@@ -41,7 +40,7 @@ namespace PokerHand.Business.Objects
         /// <summary>
         /// Shuffles this instance.
         /// </summary>
-        public IDeckService Shuffle()
+        public void Shuffle()
         {
             // temporary card list
             var cards = new List<Card>();
@@ -81,15 +80,13 @@ namespace PokerHand.Business.Objects
                 _cardStack.Push(cards[randId - 1]);
                 cards.RemoveAt(randId - 1);
             }
-
-            return this;
         }
 
         /// <summary>
         /// Gets the next card.
         /// </summary>
         /// <returns>Card.</returns>
-        public ICard GetNextCard()
+        public Card GetNextCard()
         {
             try
             {

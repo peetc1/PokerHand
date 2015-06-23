@@ -116,7 +116,7 @@ namespace PokerHand.Business.Objects
         /// </summary>
         /// <param name="cards">The cards.</param>
         /// <returns>HandType.</returns>
-        private static HandType GetHandType(IReadOnlyCollection<ICard> cards)
+        private static HandType GetHandType(IList<Card> cards)
         {
             // hand type attributes
             var attribs = new List<HandTypeEnum>();
@@ -138,8 +138,9 @@ namespace PokerHand.Business.Objects
                 // re-order temp list
                 tempCards = tempCards.OrderBy(x => x).ToList();
             }
+
             // determine straight
-            if (tempCards.Where((t, i) => (t + 1) == tempCards[i + 1]).Count() == cards.Count)
+            if (tempCards.Where((t, i) => (i + 1) < tempCards.Count && t + 1 == tempCards[i + 1]).Count() == cards.Count)
             {
                 attribs.Add(HandTypeEnum.Straight);
             }

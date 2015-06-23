@@ -37,8 +37,8 @@
             {{/each}}
         </div>
         <div class="row pad-top" style="min-height: 80px;">
-            <div class="col-md-5">
-                <h2 id="winText" class="show">Winner: {{#if Winner}} {{Username}} with the hand {{HandType}} {{/if}}</h2>
+            <div class="col-md-9">
+                {{#if Winner}}<h2 id="winText" class="show">Winner: {{Winner.UserName}} with the hand {{Winner.HandType}} </h2>{{/if}}
             </div>
         </div>
         <div class="row">

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using PokerHand.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace PokerHand.Business.Objects
@@ -8,18 +7,18 @@ namespace PokerHand.Business.Objects
     {
         public Player()
         {
-            Hand = new ICard[5];
+            Hand = new List<Card>();
         }
 
         public Player(string username)
         {
-            Hand = new ICard[5];
+            Hand = new List<Card>();
             Name = username;
         }
 
         [Display(Name = "Player Name:")]
         public string Name { get; set; }
 
-        public ICard[] Hand { get; set; }
+        public List<Card> Hand { get; set; }
     }
 }

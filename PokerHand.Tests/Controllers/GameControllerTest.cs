@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerHand.Business.Objects;
 using PokerHand.Controllers;
 using PokerHand.Models;
 
@@ -36,6 +35,38 @@ namespace PokerHand.Tests.Controllers
             // Assert
             Assert.IsNotNull(model.Player1);
             Assert.IsNotNull(model.Player2);
+        }
+
+        [TestMethod]
+        public void Shuffle()
+        {
+            // Arrange
+            var controller = new GameController();
+
+            // Act
+            //var result = controller.Index("p1", "p2") as ViewResult;
+            controller.Shuffle();
+
+
+            // Assert
+            Assert.IsNotNull(controller);
+           
+        }
+
+        [TestMethod]
+        public void Deal()
+        {
+            // Arrange
+            var controller = new GameController();
+
+            // Act
+            controller.Index("p1", "p2");
+            var result = controller.Deal();
+
+
+            // Assert
+            Assert.IsNotNull(result);
+
         }
     }
 }

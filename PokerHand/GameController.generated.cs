@@ -62,6 +62,12 @@ namespace PokerHand.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult Deal()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.Deal);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public GameController Actions { get { return MVC.Game; } }
@@ -79,12 +85,14 @@ namespace PokerHand.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string Deal = "Deal";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string Deal = "Deal";
         }
 
 
@@ -97,6 +105,14 @@ namespace PokerHand.Controllers
             public readonly string playerName1 = "playerName1";
             public readonly string playerName2 = "playerName2";
         }
+        static readonly ActionParamsClass_Deal s_params_Deal = new ActionParamsClass_Deal();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Deal DealParams { get { return s_params_Deal; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Deal
+        {
+            public readonly string players = "players";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -107,10 +123,8 @@ namespace PokerHand.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _GameBoard = "_GameBoard";
                 public readonly string Index = "Index";
             }
-            public readonly string _GameBoard = "~/Views/Game/_GameBoard.cshtml";
             public readonly string Index = "~/Views/Game/Index.cshtml";
         }
     }
@@ -130,6 +144,18 @@ namespace PokerHand.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "playerName1", playerName1);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "playerName2", playerName2);
             IndexOverride(callInfo, playerName1, playerName2);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void DealOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, PokerHand.Business.Objects.Players players);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult Deal(PokerHand.Business.Objects.Players players)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.Deal);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "players", players);
+            DealOverride(callInfo, players);
             return callInfo;
         }
 

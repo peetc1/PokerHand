@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PokerHand.Models;
+﻿using PokerHand.Business.Objects;
 
 namespace PokerHand.Business.Interfaces
 {
     public interface IDeckService
     {
-        IDeckService Shuffle();
-        ICard GetNextCard();
+        void Shuffle();
+        Card GetNextCard();
         int GetCardsLeft();
     }
 }
