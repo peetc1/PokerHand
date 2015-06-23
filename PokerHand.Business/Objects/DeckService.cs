@@ -15,14 +15,6 @@ namespace PokerHand.Business.Objects
 
         #region Private variables
 
-        private static readonly Dictionary<int,string> Suits = new Dictionary<int, string>
-        {
-            {1, "D"},
-            {2, "C"},
-            {3, "H"},
-            {4, "S"}
-        };
-
         private Stack<Card> _cardStack;
         #endregion
         
@@ -46,7 +38,7 @@ namespace PokerHand.Business.Objects
             var cards = new List<Card>();
 
             // create temporary deck of cards
-            foreach (var suit in Suits)
+            foreach (var suit in Suits.SuitList)
             {
                 cards.AddRange(CardSet.SetList.Select(card => new Card
                 {

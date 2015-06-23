@@ -51,6 +51,7 @@
     <Compile Include="Objects\HandType.cs" />
     <Compile Include="Objects\HandTypeEnum.cs" />
     <Compile Include="Objects\Players.cs" />
+    <Compile Include="Objects\Suits.cs" />
     <Compile Include="Objects\Winner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Objects\Player.cs" />
